@@ -1,8 +1,8 @@
 clc
 clear
 %% paths (Please specify your data path)
-path_src  = 'F:/LongguangWang/Data/DIV2K/HR';
-path_save = 'F:/LongguangWang/Data/DIV2K/';
+path_src  = 'E:\dataset\SISR\DIV2K\DIV2K_valid_HR';
+path_save = 'E:\dataset\SISR\DIV2K\DIV2K_valid_LR_bicubic_asy';
 ext       =  {'*.png'};
 HR_path   =  [];
 LR_path = fullfile(path_save,'LR_bicubic');
@@ -27,27 +27,27 @@ end
 scales = 1.1:0.1:4.0;
 n_scale = length(scales);
 
-for idx_im = 1:n_imgs
-    fprintf('IdxIm=%d\n', idx_im);
-    ImHR = DIV2K_HR{idx_im};
-    
-    for i = 1:1:n_scale
-        scale = scales(i);
-              
-        LR_path_son = fullfile(path_save, 'LR_bicubic', sprintf('X%.2f',scale));
-        if ~exist(LR_path_son, 'dir')
-            mkdir(LR_path_son)
-        end
-        
-        % bicubic downsampling
-        ImLR = gen_LR_img(ImHR, scale, scale);
-        
-        % save image
-        img_name = HR_path(idx_im).name;
-        ImLR_name = fullfile(LR_path_son, img_name);
-        imwrite(ImLR, ImLR_name, 'png');
-    end
-end
+% for idx_im = 1:n_imgs
+%     fprintf('IdxIm=%d\n', idx_im);
+%     ImHR = DIV2K_HR{idx_im};
+%     
+%     for i = 1:1:n_scale
+%         scale = scales(i);
+%               
+%         LR_path_son = fullfile(path_save, 'LR_bicubic', sprintf('X%.2f',scale));
+%         if ~exist(LR_path_son, 'dir')
+%             mkdir(LR_path_son)
+%         end
+%         
+%         % bicubic downsampling
+%         ImLR = gen_LR_img(ImHR, scale, scale);
+%         
+%         % save image
+%         img_name = HR_path(idx_im).name;
+%         ImLR_name = fullfile(LR_path_son, img_name);
+%         imwrite(ImLR, ImLR_name, 'png');
+%     end
+% end
 
 %% generate LR images with asymmetric scale factors
 for idx_im = 1:n_imgs

@@ -12,25 +12,25 @@ def get_patch(*args, patch_size=96, scale=1, scale2=1):
     tp2 = int(round(scale2 * patch_size))
     ip = patch_size
 
-    if scale==int(scale):
+    if scale == int(scale):
         step = 1
-    elif (scale*2)== int(scale*2):
+    elif (scale * 2) == int(scale * 2):
         step = 2
-    elif (scale*5) == int(scale*5):
+    elif (scale * 5) == int(scale * 5):
         step = 5
     else:
         step = 10
-    if scale2==int(scale2):
+    if scale2 == int(scale2):
         step2 = 1
-    elif (scale2*2)== int(scale2*2):
+    elif (scale2 * 2) == int(scale2 * 2):
         step2 = 2
-    elif (scale2*5) == int(scale2*5):
+    elif (scale2 * 5) == int(scale2 * 5):
         step2 = 5
     else:
         step2 = 10
 
-    iy = random.randrange(2, (ih-ip)//step-2) * step
-    ix = random.randrange(2, (iw-ip)//step2-2) * step2
+    iy = random.randrange(2, (ih - ip) // step - 2) * step
+    ix = random.randrange(2, (iw - ip) // step2 - 2) * step2
 
     tx, ty = int(round(scale2 * ix)), int(round(scale * iy))
 
@@ -40,6 +40,7 @@ def get_patch(*args, patch_size=96, scale=1, scale2=1):
     ]
 
     return ret
+
 
 def set_channel(*args, n_channels=3):
     def _set_channel(img):
@@ -56,6 +57,7 @@ def set_channel(*args, n_channels=3):
 
     return [_set_channel(a) for a in args]
 
+
 def np2Tensor(*args, rgb_range=255):
     def _np2Tensor(img):
         np_transpose = np.ascontiguousarray(img.transpose((2, 0, 1)))
@@ -65,6 +67,7 @@ def np2Tensor(*args, rgb_range=255):
         return tensor
 
     return [_np2Tensor(a) for a in args]
+
 
 def augment(*args, hflip=True, rot=True):
     hflip = hflip and random.random() < 0.5
@@ -89,4 +92,3 @@ def augment(*args, hflip=True, rot=True):
         out.append(_augment(args[1], rot=False))
 
     return out
-
