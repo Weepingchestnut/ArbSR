@@ -25,8 +25,8 @@ if __name__ == '__main__':
 
     # model is trained on scale factors in range [1, 4]
     # one can also try out-of-distribution scale factors but the results may be not very promising
-    assert args.sr_size[0] / lr.size(2) > 1 and args.sr_size[0] / lr.size(2) <= 4
-    assert args.sr_size[1] / lr.size(3) > 1 and args.sr_size[1] / lr.size(3) <= 4
+    assert 1 < args.sr_size[0] / lr.size(2) <= 4
+    assert 1 < args.sr_size[1] / lr.size(3) <= 4
 
     with torch.no_grad():
         scale = args.sr_size[0] / lr.size(2)
